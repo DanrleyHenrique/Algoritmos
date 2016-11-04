@@ -1,2 +1,2 @@
 # Algoritmos
-Códigos da disciplina de algoritmos no IFRN.
+Códigos em C da disciplina de algoritmos no IFRN.
