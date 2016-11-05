@@ -1,37 +1,24 @@
-#include<stdio.h>;
-//código precisando ser debugado
+#include<stdio.h>
 
-int divide(int dividendo, int divisor){
-	
-    int sub;
-    int contador;
-    sub = dividendo-divisor;
-    contador++;
-    if(sub == 0)
- 	return contador;
-    divide(sub, divisor);
+int divide(int a, int b){
+	if (a == b) {
+	return 1;
+	} else {
+		if (a < b) return 0;
+		else return divide(a-b, b) + 1;
+	}	
 }
 
-
 int main(void){
-
-	// Disable stdout buffering
-    setvbuf(stdout, NULL, _IONBF, 0);       
-       
 	int divisor = 0;
 	int dividendo = 0;
 	int resultado = 0;
-
-    puts("Entre com o dividendo");
-    scanf("%d",&dividendo);
-       
-    puts ("Entre com o divisor");
-    scanf("%d",&divisor);
-
-    
-	printf("%d divido por %d = %d\n", dividendo, divisor, divide(dividendo, divisor));
 	
+	puts("Entro com o dividendo");
+	scanf("%d", &dividendo);
+	puts("Entre com o divisor");
+	scanf("%d", &divisor);
+	
+	printf("%d dividido por %d = %d", dividendo, divisor, divide(dividendo, divisor));
 	return (0);
-   
-}       
-          
+}
