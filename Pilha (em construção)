@@ -1,0 +1,106 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+struct No{
+	int numero;
+	struct No *proximo;
+};
+
+int tamanho;
+int valor;
+
+
+void menu(){
+	printf("Empilhar: 1 \nDesempilhar: 2 \n");
+	printf("Exibir: 3 \nGravar em arquivo: 4 \n");
+}
+
+int alocar(){
+	/*
+	Novo espaço de memória solicitado para mais um struct 
+	com um novo ponteiro p apontando para esse novo espaço
+	*/
+	struct No *p = (struct No*) malloc(sizeof(struct No));
+	
+	if(p == NULL)
+	{
+		printf("NO MEMORY");
+		return 0;
+	}
+	else
+	{
+		printf("Digite número int:/n");
+		scanf("%d", &p->numero);
+		return p;
+	}
+}
+
+void empilhar(struct No *PILHA){
+	struct No *ponteiro = alocar();
+	ponteiro->proximo = NULL;	
+}
+
+
+void opcao(int x){
+	switch(x){
+		case 1:
+			//empilhar(PILHA);
+			break;
+			
+		case 2:
+		//	desempilhar();
+			break;
+		
+		case 3:
+		//	exibir();
+			break;
+	}
+}
+
+
+void inicia(struct No *PILHA){
+	/*Aqui usei o ponteiro que aponta para minha struct no e o usei
+	para acessar o ponteiro proximo que fica dentro da struct no e o 
+	apontei para o nulo.
+	*/
+	PILHA->proximo = NULL;
+	tamanho = 0;
+}
+
+											//MAIN
+int main(int argc, char *argv[]) {
+	//declarando funções
+	void menu();
+	void opcao(int x);
+	void inicia(struct No *PILHA);
+	
+	/*Logo abaixo criei um ponteiro usando stack e alocação
+	O Stack é necessario pq  malloc retorn um ponteiro void genérico
+	e isso entraria em conflito o ponteiro struct que vai apontar para o
+	espaço de memória que malloc está pedindo para o sistemo operacional.
+	*/
+	struct No *PILHA = (struct No*) malloc(sizeof(struct No));
+	
+	if(PILHA == NULL)
+	{
+		printf("Sem memória disponível, tente novamamente mais tarde");
+		return 0;
+	}
+	else
+	{
+		inicia(PILHA);
+	}
+	
+	int x = -7;
+	while(x != 0){
+		menu();
+		scanf("%d", &x);
+		opcao(x);
+	}
+	
+	return 0;
+	system("pause");
+}
+
+
