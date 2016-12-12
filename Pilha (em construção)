@@ -1,106 +1,198 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
+#include <locale.h>
 
 struct No{
 	int numero;
 	struct No *proximo;
 };
-
+typedef struct No no;
 int tamanho;
-int valor;
+static char aux[100]; 
+static char aux2[100]; 
 
-
-void menu(){
-	printf("Empilhar: 1 \nDesempilhar: 2 \n");
-	printf("Exibir: 3 \nGravar em arquivo: 4 \n");
+int menu(){
+	int x;
+	printf("\n\txxxxxxxxxxxxxx");
+	printf("\t\n\tx 1 Empilhar\n\tx 2 Desempilhar\n\tx 3 Mostrar\n\tx 4 Ver tamanho\n\tx 5 Salvar em arquivo\n\tx 0 Encerrar\n\n\n\n\n\n\n\t");
+	scanf("%d", &x);
+	
+	return x;
 }
 
-int alocar(){
-	/*
-	Novo espaço de memória solicitado para mais um struct 
-	com um novo ponteiro p apontando para esse novo espaço
-	*/
-	struct No *p = (struct No*) malloc(sizeof(struct No));
-	
-	if(p == NULL)
+void inicia(no *PILHA){
+	PILHA->proximo = NULL;
+	tamanho = 0;	
+}
+
+void empilhar(no *PILHA){
+	no *novo = (no*) malloc(sizeof(no));
+	if(novo == NULL)
 	{
-		printf("NO MEMORY");
-		return 0;
+		printf("SEM MEMORIA DISPONIVEL");
+		exit(0);
+	}
+	
+	else
+	{
+		printf("Digite o número inteiro\n");
+		scanf("%d", &novo->numero);
+		novo->proximo = NULL;
+		
+		if(PILHA->proximo == NULL)
+		{
+			PILHA->proximo = novo;
+			tamanho++;
+		}
+		else
+		{
+			no *tmp = PILHA->proximo;
+			while(tmp->proximo != NULL)
+				tmp = tmp->proximo;
+				
+			tmp->proximo = novo;
+			tamanho++;
+		}
+	}
+}
+
+void desempilhar(no *PILHA){
+	if(PILHA->proximo == NULL)
+	{
+		printf("Pilha vazia");
 	}
 	else
 	{
-		printf("Digite número int:/n");
-		scanf("%d", &p->numero);
-		return p;
+		no *ultimo = PILHA->proximo;
+		no *penultimo = PILHA;
+		while(ultimo->proximo != NULL)
+		{
+			penultimo = ultimo;
+			ultimo = ultimo->proximo;
+		}
+		if(ultimo->proximo == NULL)
+		{
+			penultimo->proximo = NULL;
+		}
+		tamanho--;
+		
 	}
 }
 
-void empilhar(struct No *PILHA){
-	struct No *ponteiro = alocar();
-	ponteiro->proximo = NULL;	
+int exibir(no *PILHA){
+	if(PILHA->proximo == NULL){
+		printf("Pilha Vazia");
+	}
+	else
+	{
+		
+	no *tmp = PILHA->proximo;
+	if(tmp->proximo == NULL)
+	{
+		printf("->  %d", tmp->numero);
+		
+	}
+	
+	while(tmp->proximo != NULL){
+		printf("->  %d  ", tmp->numero);
+		tmp	= tmp->proximo;	
+		if(tmp->proximo == NULL)
+			printf("->  %d", tmp->numero);
+		}
+	}
+	
 }
 
+char* percorrePilha(no *PILHA){
+	
 
-void opcao(int x){
-	switch(x){
+	if(PILHA->proximo == NULL){
+		printf ("Pilha Vazia");
+	}
+	else
+	{
+		
+	no *tmp = PILHA->proximo;
+	if(tmp->proximo == NULL)
+	{
+		sprintf(aux, "%s%d", "->  ", tmp->numero);
+	}
+	
+	while(tmp->proximo != NULL)
+	{
+		sprintf(aux, "%s%d", " -> ", tmp->numero);
+		//strcat(aux, aux2);
+		tmp	= tmp->proximo;	
+		strcat(aux2, aux);
+		if(tmp->proximo == NULL)
+		{
+			sprintf(aux, "%s%d", " -> ", tmp->numero);
+			strcat(aux2, aux);
+		}
+	}
+	
+
+	}
+}
+
+int getTamanho(){
+	return tamanho;
+}
+
+void salvarPilhaEmArquivo(char nomeArquivo[]){
+	FILE *ponteiro;
+	strcat(nomeArquivo, ".txt");
+	ponteiro = fopen(nomeArquivo, "w");
+	fprintf(ponteiro, aux2);
+}
+
+            //MAIN
+int main(void){
+	setlocale(LC_ALL,"");
+	tamanho = 0;
+	int opcao;
+	opcao = -1;
+	
+	no *ponteiro = (no*) malloc(sizeof(no));
+	if(ponteiro == NULL)
+	{
+		printf("SEM MEMÓRIA DISPONÍVEL");
+		return 0;
+	}
+	inicia(ponteiro);
+	
+	while(opcao != 0)
+	{
+		opcao = menu();
+		switch(opcao){
 		case 1:
-			//empilhar(PILHA);
+			empilhar(ponteiro);
 			break;
 			
 		case 2:
-		//	desempilhar();
+			desempilhar(ponteiro);
 			break;
-		
+			
 		case 3:
-		//	exibir();
+			exibir(ponteiro);
 			break;
-	}
-}
-
-
-void inicia(struct No *PILHA){
-	/*Aqui usei o ponteiro que aponta para minha struct no e o usei
-	para acessar o ponteiro proximo que fica dentro da struct no e o 
-	apontei para o nulo.
-	*/
-	PILHA->proximo = NULL;
-	tamanho = 0;
-}
-
-											//MAIN
-int main(int argc, char *argv[]) {
-	//declarando funções
-	void menu();
-	void opcao(int x);
-	void inicia(struct No *PILHA);
+			
+		case 4:
+			printf("Tamanho da pilha: %d unidade(s)", getTamanho());
+			break;
+			
+		case 5:
+			percorrePilha(ponteiro);
+			printf("Por favor, escreva um nome para o arquivo\n");
+			char nomeArquivo[30];
+			scanf("%s", &nomeArquivo);
+			salvarPilhaEmArquivo(nomeArquivo);
+			break;
+			
+		}
+		
 	
-	/*Logo abaixo criei um ponteiro usando stack e alocação
-	O Stack é necessario pq  malloc retorn um ponteiro void genérico
-	e isso entraria em conflito o ponteiro struct que vai apontar para o
-	espaço de memória que malloc está pedindo para o sistemo operacional.
-	*/
-	struct No *PILHA = (struct No*) malloc(sizeof(struct No));
-	
-	if(PILHA == NULL)
-	{
-		printf("Sem memória disponível, tente novamamente mais tarde");
-		return 0;
 	}
-	else
-	{
-		inicia(PILHA);
-	}
-	
-	int x = -7;
-	while(x != 0){
-		menu();
-		scanf("%d", &x);
-		opcao(x);
-	}
-	
 	return 0;
-	system("pause");
 }
-
-
