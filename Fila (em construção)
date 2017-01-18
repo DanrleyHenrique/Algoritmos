@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+int menu(){
+	int x;
+	printf("\n1: Adicionar elemento na fila\n");
+	printf("2: Fazer a fila andar\n");
+	printf("3: Ver a fila\n");
+	printf("0: Encerrar o programa\n");
+	scanf("%d", &x);
+	return x;
+}
+
+struct No{
+	int numero;
+	struct No *proximo;
+};
+typedef struct No no;
+
+
+void iniciar(no *partida){
+	partida->proximo = NULL;
+}
+
+void crescerfila(no *partida){
+	printf("Digite novo elemento\n");
+	no *novo = (no*)malloc(sizeof(no));
+	scanf("%d", &novo->numero);
+	novo->proximo = NULL;
+	
+	while(partida->proximo != NULL){
+		partida = partida->proximo;
+	}
+	partida->proximo = novo;
+}
+
+	
+
+
+void exibirfila(no *partida){
+	if(partida->proximo == NULL){
+		printf("\txxxxxxxxxxxxxxx\n");
+		printf("\tx Pilha vazia x\n");
+		printf("\txxxxxxxxxxxxxxx\n");
+	}else{
+		printf("\tInício da fila-> ");
+		while(partida->proximo != NULL){
+			partida = partida->proximo;
+			printf("%d ", partida->numero);
+		}
+		printf("<-Final da fila");
+	}
+}
+
+void fazerfilandar(no *partida){
+	
+}
+
+int main(){
+	int x; setlocale(LC_ALL,"");
+	x = 1;
+	
+	no *partida = (no*) malloc(sizeof(no));
+	iniciar(partida);
+	
+	while(x != 0){
+	x = menu();
+		switch(x){
+			case 1:
+				crescerfila(partida);
+				break;
+			case 2:
+				fazerfilandar(partida);
+				break;
+			case 3: 
+				exibirfila(partida);
+				break;
+			case 4:
+				break;
+		}
+	}
+	return 0;
+}
