@@ -23,19 +23,14 @@ void iniciar(no *partida){
 	partida->proximo = NULL;
 }
 
-void crescerfila(no *partida){
+no* adicionarnofinal(no *partida){
 	printf("Digite novo elemento\n");
 	no *novo = (no*)malloc(sizeof(no));
 	scanf("%d", &novo->numero);
 	novo->proximo = NULL;
-	
-	while(partida->proximo != NULL){
-		partida = partida->proximo;
-	}
 	partida->proximo = novo;
+	return novo;
 }
-
-	
 
 
 void exibirfila(no *partida){
@@ -61,14 +56,17 @@ int main(){
 	int x; setlocale(LC_ALL,"");
 	x = 1;
 	
-	no *partida = (no*) malloc(sizeof(no));
-	iniciar(partida);
+	no *partida = (no*) malloc(sizeof(no));//Ponteiro que vai servir de base para as
+	iniciar(partida);//outras structs
+	
+	no *auxiliar = (no*)malloc(sizeof(no));//Ponteiro que vai sempre receber o final da fila
+	auxiliar = partida;
 	
 	while(x != 0){
 	x = menu();
 		switch(x){
 			case 1:
-				crescerfila(partida);
+				auxiliar = adicionarnofinal(auxiliar);
 				break;
 			case 2:
 				fazerfilandar(partida);
