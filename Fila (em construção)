@@ -2,20 +2,9 @@
 #include <stdlib.h>
 #include <locale.h>
 
-int entrada(){
-	//Aqui são gerados todos os números aleatórios 
-	printf("A entrada será de dois elevado a quanto?\n2^?\n? = ");
-	int x, l, z, w;
-	scanf("%d", &x);
-	z = 1;
-	for(l = 0; l < x; l++){
-		z = z * 2;
-	}
-	for(l = 0; l < z; l++){
-	x = geradorAleatorio();
-	printf("%d ", x);
-	}
-}
+typedef struct No no;
+//Fila com entrada automática de números aleatorios
+//Função adicionarnofinal tem complexidade O(1)
 
 int geradorAleatorio(){
 	//Aqui são gerados todos os números aleatórios
@@ -41,28 +30,30 @@ struct No{
 	int numero;
 	struct No *proximo;
 };
-typedef struct No no;
 
 
 void iniciar(no *partida){
 	partida->proximo = NULL;
 }
 
-no* adicionarnofinal(no *partida){
-	printf("Digite novo elemento\n");
+no* adicionarnofinal(no *partida, int x){
+//	printf("Digite novo elemento\n");
 	no *novo = (no*)malloc(sizeof(no));
-	scanf("%d", &novo->numero);
+	novo->numero = x;
 	novo->proximo = NULL;
 	partida->proximo = novo;
 	return novo;
+
 }
 
 
 void exibirfila(no *partida){
+
 	if(partida->proximo == NULL){
 		printf("\txxxxxxxxxxxxxxx\n");
 		printf("\tx Pilha vazia x\n");
 		printf("\txxxxxxxxxxxxxxx\n");
+
 	}else{
 		printf("\tInício da fila-> ");
 		while(partida->proximo != NULL){
@@ -71,7 +62,9 @@ void exibirfila(no *partida){
 		}
 		printf("<-Final da fila");
 	}
+
 }
+
 
 void removerdoinicio(no *partida){
 	no *aux = (no*)malloc(sizeof(no));
@@ -81,30 +74,60 @@ void removerdoinicio(no *partida){
 }
 
 int main(){
+
 	int x; setlocale(LC_ALL,""); srand((unsigned) time(NULL));
 	x = 1;
-	
 	no *partida = (no*) malloc(sizeof(no));//Ponteiro que vai servir de base para as
 	iniciar(partida);//outras structs
-	
+
 	no *auxiliar = (no*)malloc(sizeof(no));//Ponteiro que vai sempre receber o final da fila
 	auxiliar = partida;
-	entrada();
+
+	/////////////////;
+	//Aqui são gerados todos os números aleatórios 
+
+	printf("A entrada será de dois elevado a quanto?\n2^?\n? = ");
+	int l, z, w;
+	scanf("%d", &x);
+	z = 1;
+	for(l = 0; l < x; l++){
+		z = z * 2;
+	}
+
+	for(l = 0; l < z; l++){
+		if(l<z-1){
+	x = geradorAleatorio();
+	auxiliar = adicionarnofinal(auxiliar, x);
+	printf("%d ", x);
+	}else{
+		//verei se posso medir o tempo por aqui
+		x = geradorAleatorio();
+		auxiliar = adicionarnofinal(auxiliar, x);
+		printf("%d ", x);
+	}
+	}
+	///Fim dos números aleatórios
+	///////////////////////////
 	while(x != 0){
+
 	x = menu();
 		switch(x){
 			case 1:
-				auxiliar = adicionarnofinal(auxiliar);
+				//restaurar essa parte
+				//auxiliar = adicionarnofinal(auxiliar);
 				break;
+
 			case 2:
 				removerdoinicio(partida);
 				break;
+
 			case 3: 
 				exibirfila(partida);
 				break;
 			case 4:
 				break;
 		}
+
 	}
 	return 0;
 }
