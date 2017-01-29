@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <locale.h>
 
+//A função adicionarnofinal atende a complexidade O(1);
+//A função removerdoinicio atende a complexidade O(n);
+
 typedef struct No no;
-//Fila com entrada automática de números aleatorios
-//Função adicionarnofinal tem complexidade O(1)
 
 int geradorAleatorio(){
 	//Aqui são gerados todos os números aleatórios
@@ -29,6 +30,7 @@ int menu(){
 struct No{
 	int numero;
 	struct No *proximo;
+	struct No *anterior;
 };
 
 
@@ -41,6 +43,7 @@ no* adicionarnofinal(no *partida, int x){
 	no *novo = (no*)malloc(sizeof(no));
 	novo->numero = x;
 	novo->proximo = NULL;
+	novo->anterior = partida;
 	partida->proximo = novo;
 	return novo;
 
@@ -66,11 +69,29 @@ void exibirfila(no *partida){
 }
 
 
-void removerdoinicio(no *partida){
-	no *aux = (no*)malloc(sizeof(no));
-	aux = partida;
-	aux = aux->proximo;
-	aux = aux->proximo;
+no *removerdoinicio(no *auxiliar, no *partida){
+		//Auxiliar éo final da fila
+		
+		if(partida->proximo == NULL){
+		printf("\txxxxxxxxxxxxxxx\n");
+		printf("\tx Pilha vazia x\n");
+		printf("\txxxxxxxxxxxxxxx\n");
+		}else{
+		no *comeco = (no*)malloc(sizeof(no));
+		no *pulo = (no*)malloc(sizeof(no));
+		pulo = auxiliar->anterior;
+		
+		while(pulo->anterior != NULL){
+			pulo = pulo->anterior;
+		}
+		
+		comeco = pulo;
+		pulo = pulo->proximo;
+		printf("Desalocado %d", pulo->numero);
+		pulo = pulo->proximo;
+		comeco->proximo = pulo;
+	}
+	
 }
 
 int main(){
@@ -100,6 +121,7 @@ int main(){
 	auxiliar = adicionarnofinal(auxiliar, x);
 	printf("%d ", x);
 	}else{
+		//z = qtd de itens na fila
 		//verei se posso medir o tempo por aqui
 		x = geradorAleatorio();
 		auxiliar = adicionarnofinal(auxiliar, x);
@@ -109,7 +131,7 @@ int main(){
 	///Fim dos números aleatórios
 	///////////////////////////
 	while(x != 0){
-
+		
 	x = menu();
 		switch(x){
 			case 1:
@@ -118,7 +140,7 @@ int main(){
 				break;
 
 			case 2:
-				removerdoinicio(partida);
+				removerdoinicio(auxiliar, partida);
 				break;
 
 			case 3: 
