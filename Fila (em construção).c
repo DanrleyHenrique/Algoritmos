@@ -2,9 +2,6 @@
 #include <stdlib.h>
 #include <locale.h>
 
-//A função adicionarnofinal atende a complexidade O(1);
-//A função removerdoinicio atende a complexidade O(n);
-
 typedef struct No no;
 
 int geradorAleatorio(){
@@ -69,7 +66,7 @@ void exibirfila(no *partida){
 }
 
 
-no *removerdoinicio(no *auxiliar, no *partida){
+void *removerdoinicio(no *auxiliar, no *partida){
 		//Auxiliar éo final da fila
 		
 		if(partida->proximo == NULL){
