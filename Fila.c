@@ -51,7 +51,7 @@ void exibirfila(no *partida){
 
 	if(partida->proximo == NULL){
 		printf("\txxxxxxxxxxxxxxx\n");
-		printf("\tx Filha vazia x\n");
+		printf("\tx Fila vazia x\n");
 		printf("\txxxxxxxxxxxxxxx\n");
 
 	}else{
@@ -71,7 +71,7 @@ void *removerdoinicio(no *auxiliar, no *partida){
 		
 		if(partida->proximo == NULL){
 		printf("\txxxxxxxxxxxxxxx\n");
-		printf("\tx Filha vazia x\n");
+		printf("\tx Fila vazia x\n");
 		printf("\txxxxxxxxxxxxxxx\n");
 		}else{
 		no *comeco = (no*)malloc(sizeof(no));
