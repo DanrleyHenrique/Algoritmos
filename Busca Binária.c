@@ -2,6 +2,18 @@
 #include <stdlib.h>
 #include <locale.h>
 
+
+int geradorAleatorio()
+{
+	//Essa função é capaz de gerar um número aleatório
+	int x;
+	x = rand() %  200;
+	if((rand() % 3) == 1)
+		return x*(-1);
+	else
+		return x;	
+}
+
 int PesquisaBinaria ( int vet[], int chave, int Tam)
 {
      int inf = 0;     //Limite inferior  (o primeiro elemento do vetor em C é zero          )
@@ -21,9 +33,31 @@ int PesquisaBinaria ( int vet[], int chave, int Tam)
 }
 
 int main(){
-  int Vetor[10] = {77, 10, 23, 55, 44, 56, 54, 45, 58, 76}, chave, Tam;
+  int chave, Tam, j, expoente, i;
   chave = 45;
   Tam = 10;
+  
+  ////////////// For para gerar a exponenciação
+	j = 1;
+	
+	expoente = 3;
+	
+	for(i = 0; i < expoente; i++){
+		j = j * 2;
+	}
+	
+	////////////// For para semear o Array
+	int Vetor[j];
+	i = rand() % j;
+	chave = Vetor(i);
+	
+	for(i = 0; i < j; i++){
+		Vetor[i] = geradorAleatorio();
+		printf("%d ", Vetor[i]);	
+	}
+  
   printf(" O elemento %d está no indice %d", chave, PesquisaBinaria(Vetor, chave, Tam));
   return 0;
+  
+  
 }
