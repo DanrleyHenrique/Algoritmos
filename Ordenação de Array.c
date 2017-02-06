@@ -1,8 +1,11 @@
 #include <stdio.h>
+#include <windows.h> 
 
 int main(){
 	
-	int i, j, me, n, troca, Vetor[10] = {77, 10, 23, 55, 44, 56, 54, 45, 58, 76};
+	int i, j, me, n, troca, Vetor[10] = {77, 10, 23, 55, 44, 56, 54, 45, 58, 76}, tempo_em_milisegundos, final;
+	tempo_em_milisegundos = GetTickCount();
+	
   n, i = 0;
 
 	while(Vetor[i] != NULL){
@@ -29,5 +32,8 @@ int main(){
 	for(i = 0; i < n; i++){
 		printf(" %d", Vetor[i]);
 	}
+	final = GetTickCount();
+	final = final - tempo_em_milisegundos;
+	printf(" %d", final);
 	return 0;
 }
