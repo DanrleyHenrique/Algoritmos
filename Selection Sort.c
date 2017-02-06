@@ -22,11 +22,12 @@ int main(){
 	int i, j, expoente, me, n, troca, *pVetor; 
 	setlocale(LC_ALL,""); srand((unsigned) time(NULL));
 	
-	printf("A entrada será de dois elevado a quanto?\n2^?\n? = ");
-	scanf("%d", &expoente);
+	//printf("A entrada será de dois elevado a quanto?\n2^?\n? = ");
+	//scanf("%d", &expoente);
 	
 	////////////// For para gerar a exponenciação
 	j = 1;
+	expoente = 3;
 	for(i = 0; i < expoente; i++){
 		j = j * 2;
 	}
