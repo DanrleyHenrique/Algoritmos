@@ -104,9 +104,10 @@ int main(){
 	/////////////////;
 	//Aqui são gerados todos os números aleatórios 
 
-	printf("A entrada será de dois elevado a quanto?\n2^?\n? = ");
+//	printf("A entrada será de dois elevado a quanto?\n2^?\n? = ");
 	int l, z, w;
-	scanf("%d", &x);
+//	scanf("%d", &x);
+  x = 3;
 	z = 1;
 	for(l = 0; l < x; l++){
 		z = z * 2;
