@@ -7,8 +7,8 @@
 
 int geradorAleatorio(){
 	//Essa função é capaz de gerar um número aleatório
-	int x;
-	x = rand() %  2147483647;
+	short int x;
+	x = rand() %  30;
 	if((rand() % 3) == 1)
 		return x*(-1);
 	else
