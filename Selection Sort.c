@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <time.h>
 
 //Este algoritmo atende a complexidade O(n^2)
 
@@ -18,6 +19,10 @@ int geradorAleatorio(){
 
 
 int main(){
+  
+  double tempoInicial, tempoFinal;
+	double tempoGasto;
+	
 	
 	int i, j, expoente, me, n, troca, *pVetor; 
 	setlocale(LC_ALL,""); srand((unsigned) time(NULL));
@@ -27,7 +32,7 @@ int main(){
 	
 	////////////// For para gerar a exponenciação
 	j = 1;
-	expoente = 3;
+	expoente = 10;
 	for(i = 0; i < expoente; i++){
 		j = j * 2;
 	}
@@ -44,11 +49,13 @@ int main(){
 	n = j;///Aqui n recebe o tamanho do vetor que é a exponenciação deixando j para o For interno
 	printf("<-Desordenado/Ordenado->");
 	
+	
+	tempoInicial = clock();
+	
 	for(i = 0; i < n-1; i++){
 		me = i;
 		
 		for(j = i+1; j < n; j++){
-			
 			if(Vetor[j] < Vetor[me])
 				me = j;
 		}
@@ -57,10 +64,18 @@ int main(){
 			Vetor[i] = Vetor[me];
 			Vetor[me] = troca;
 		}
-	}	
+	}
+	
+	tempoFinal = clock();
+	
 	i = 0;
-	for(i = 0; i < n; i++){
+	for(i = 0; i < n; i++) {
 		printf(" %d", Vetor[i]);
 	}
+	
+	
+	tempoGasto = (tempoFinal - tempoInicial) * 1000 / CLOCKS_PER_SEC;
+	printf("\nTempo: %0.1f\n", tempoGasto);
+	
 	return 0;
 }
