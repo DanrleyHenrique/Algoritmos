@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <time.h>
 
 typedef struct No no;
 
 int geradorAleatorio(){
 	//Aqui são gerados todos os números aleatórios
-	int x;
-	x = rand() %  2147483647;
+	short int x;
+	x = rand() %  200;
 	if((rand() % 3) == 1)
 		return x*(-1);
 	else
@@ -20,7 +21,7 @@ int menu(){
 	printf("2: Remover do inicio\n");
 	printf("3: Ver a fila\n");
 	printf("0: Encerrar o programa\n");
-	scanf("%d", &x);
+	x = 2;
 	return x;
 }
 
@@ -92,8 +93,10 @@ void *removerdoinicio(no *auxiliar, no *partida){
 }
 
 int main(){
+  double tempoInicial, tempoFinal, tempoGasto, tempoInicial2, tempoFinal2, tempoGasto2;
 
 	int x; setlocale(LC_ALL,""); srand((unsigned) time(NULL));
+	short int expoente;
 	x = 1;
 	no *partida = (no*) malloc(sizeof(no));//Ponteiro que vai servir de base para as
 	iniciar(partida);//outras structs
@@ -107,9 +110,9 @@ int main(){
 //	printf("A entrada será de dois elevado a quanto?\n2^?\n? = ");
 	int l, z, w;
 //	scanf("%d", &x);
-  x = 3;
+  expoente = 20;
 	z = 1;
-	for(l = 0; l < x; l++){
+	for(l = 0; l < expoente; l++){
 		z = z * 2;
 	}
 
@@ -122,23 +125,45 @@ int main(){
 		//z = qtd de itens na fila
 		//verei se posso medir o tempo por aqui
 		x = geradorAleatorio();
+		
+		tempoInicial2 = clock();
 		auxiliar = adicionarnofinal(auxiliar, x);
+		tempoFinal2 = clock();
+		
 		printf("%d ", x);
+		
+		
+	  tempoGasto2 = (tempoFinal2 - tempoInicial2) * 1000 / CLOCKS_PER_SEC;
+	  printf("\nTempo em milisegundos: %0.3fms", tempoGasto2);
+		
+		
 	}
 	}
 	///Fim dos números aleatórios
 	///////////////////////////
 	while(x != 0){
-		
 	x = menu();
-		switch(x){
+	
+	
+	switch(x){
 			case 1:
 				//restaurar essa parte
 				//auxiliar = adicionarnofinal(auxiliar);
 				break;
 
 			case 2:
+			  tempoInicial = clock();
+			  
+			  
+			  
 				removerdoinicio(auxiliar, partida);
+				
+	
+				
+				tempoFinal = clock();
+				tempoGasto = (tempoFinal - tempoInicial) * 1000 / CLOCKS_PER_SEC;
+	      printf("\nTempo em milisegundos: %0.11fms", tempoGasto);
+	      return 0;
 				break;
 
 			case 3: 
