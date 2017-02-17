@@ -75,7 +75,7 @@ int main(){
 	
 	
 	tempoGasto = (tempoFinal - tempoInicial) * 1000 / CLOCKS_PER_SEC;
-	printf("\nTempo: %0.1f\n", tempoGasto);
+	printf("\nTempo em milisegundos: %0.1fms", tempoGasto);
 	
 	return 0;
 }
