@@ -1,0 +1,24 @@
+#include "stdio.h"
+
+
+int main(void) {
+  printf("Insira um número inteiro correspondente ao tamando do array desejado\n");
+  int n;
+  scanf("%d", &n);
+  for(int i = 0; i < n; i++)
+  {
+    printf("Insira o %dº elemento", i+1);
+    int arrayAux;
+    int *a = (int*)malloc(sizeof(int));
+    scanf("%d", &arrayAux);
+    *(a+n) = arrayAux;
+    
+    
+  }
+   if(i == n-1)
+    {
+      int somaAux;
+      *(a+n) = 6;
+    }
+  return 0;
+}
