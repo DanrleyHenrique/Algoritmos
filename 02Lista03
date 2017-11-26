@@ -1,0 +1,39 @@
+#include "stdio.h"
+
+int * divisores(int numero, int *quantidade)
+{
+  int q = 0, bytes, in = 0;
+  for(int i = 1; i <= numero; i++)
+  {
+    if(numero%i == 0)
+    {
+      q++;
+    }
+  }
+  bytes = q*4;
+  int *ponteiro = (int*)malloc(sizeof(bytes));
+  
+  for(int i = 1; i <= numero; i++)
+  {
+    if(numero%i == 0)
+    {
+      *(ponteiro+in) = i;
+      in++;
+      printf("%d\n", i);
+      printf("%d\n", in);
+      printf("Dentro da memoria: %d\n", *(ponteiro+in));
+    }
+  }
+  *quantidade = q;
+  printf("Inside: %d\n", *(ponteiro+0));
+  return ponteiro;
+}
+
+int main(void) {
+  int * divisores(int numero, int *quantidade);
+  int *quantidade, numero, *vetor;
+  scanf("%d", &numero);
+  vetor = divisores(numero, &quantidade);
+  printf("%d", *(vetor+0));
+  return 0;
+}
