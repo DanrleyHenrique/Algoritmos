@@ -23,6 +23,7 @@ int * divisores(int numero, int *quantidade)
   }
   *quantidade = q;
   return ponteiro;
+  free(ponteiro);
 }
 
 int main(void) {
@@ -40,5 +41,6 @@ int main(void) {
     printf("%d ", *(vetor+i));
   }
   printf("<-\n");
+  free(vetor);
   return 0;
 }
