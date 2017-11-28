@@ -19,13 +19,9 @@ int * divisores(int numero, int *quantidade)
     {
       *(ponteiro+in) = i;
       in++;
-      printf("%d\n", i);
-      printf("%d\n", in);
-      printf("Dentro da memoria: %d\n", *(ponteiro+in));
     }
   }
   *quantidade = q;
-  printf("Inside: %d\n", *(ponteiro+0));
   return ponteiro;
 }
 
@@ -34,6 +30,14 @@ int main(void) {
   int *quantidade, numero, *vetor;
   scanf("%d", &numero);
   vetor = divisores(numero, &quantidade);
-  printf("%d", *(vetor+0));
+  printf("Quantidade de divisores: %d\n\n", quantidade);
+  printf("Divisores\n");
+  
+  printf("-> ");
+  for(int i = 0; i < quantidade; i++)
+  {
+    printf("%d ", *(vetor+i));
+  }
+  printf("<-");
   return 0;
 }
